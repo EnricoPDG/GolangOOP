@@ -2,24 +2,26 @@ package main
 
 import (
 	"fmt"
-	c "mymodule/contas"
+	//"github.com/EnricoPDG/GolangOOP/clientes"
+	"github.com/EnricoPDG/GolangOOP/contas"
 )
 
 func main() {
-	contaDoEnrico := c.ContaCorrente{}
-	contaDoEnrico.Titular = "Enrico"
-	contaDoEnrico.Saldo = 100
+	contaNathalo := contas.ContaPoupanca{}
+	contaNathalo.Depositar(100)
+	PagarBoleto(&contaNathalo, 60)
+	fmt.Println(contaNathalo)
 
-	contaDaNath := c.ContaCorrente{
-		Titular: "Nathalia",
-		Saldo: 001,
-	}
-	
-	status := contaDoEnrico.Transferir(50, &contaDaNath)
+	contaEnrico := contas.ContaCorrente{}
+	contaEnrico.Depositar(200)
+	PagarBoleto(&contaEnrico, 40)
+	fmt.Println(contaEnrico)
+}
 
-	fmt.Println(contaDoEnrico)
-	fmt.Println(contaDaNath)
-	fmt.Println(status)
-	fmt.Println(contaDoEnrico)
-	fmt.Println(contaDaNath)
+func PagarBoleto(conta verificarConta, valorDoBoleto float64) {
+	conta.Sacar(valorDoBoleto)
+}
+
+type verificarConta interface {
+	Sacar(valor float64) string
 }
